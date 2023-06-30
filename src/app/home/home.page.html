@@ -1,0 +1,100 @@
+<ion-content [fullscreen]="true">
+
+  <!-- Histórico -->
+  <ion-menu contentId="main-content">
+    <ion-header>
+      <ion-toolbar color="tertiary">
+        <ion-title>Histórico</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="historico ion-padding">
+      <ion-list>
+        <ion-item-group>
+          <ng-container *ngIf="!historicoOperacoes.length">
+            <ion-row class="historico__item">
+              <ion-col>
+                <ion-label color="medium" class="historico__operacao">Não há operações</ion-label>
+              </ion-col>
+            </ion-row>
+          </ng-container>
+          <ng-container *ngFor="let operacaoHistorico of this.historicoOperacoes; let i = index">
+            <ion-row class="historico__item" (click)="this.mudarOperacao(operacaoHistorico.operacao)">
+              <ion-col>
+                <ion-item-divider>
+                  <ion-label color="medium" class="historico__operacao">{{operacaoHistorico.operacao}}</ion-label>
+                </ion-item-divider>
+                <ion-item-divider>
+                  <ion-label color="dark" class="historico__resultado">= {{operacaoHistorico.resultado}}</ion-label>
+                </ion-item-divider>
+              </ion-col>
+            </ion-row>
+          </ng-container>
+        </ion-item-group>
+      </ion-list>
+    </ion-content>
+  </ion-menu>
+  <div class="ion-page" id="main-content" class="icone__historico">
+    <ion-buttons slot="start">
+      <ion-menu-button><ion-icon name="time" color="tertiary"></ion-icon></ion-menu-button>
+    </ion-buttons>
+  </div>
+
+  <!-- Calculadora -->
+  <ion-row class="screen ion-justify-content-center ion-align-items-center">
+    <ion-col size="12" sizeLg="6" class="calculadora rounded ion-justify-content-center ion-align-items-center">
+      <ion-row class="ion-justify-content-center ion-align-items-center">
+        <ion-col size="11.5" class="calculadora__tela rounded mt-2 ion-justify-content-end ion-align-items-end">
+          <ion-row class="ion-justify-content-end">
+            <ion-label class="operacao">{{this.operacao.replaceAll('.', ',')}}</ion-label>
+          </ion-row>
+          <ion-row class="ion-justify-content-end">
+            <ion-label class="resultado">{{this.resultado.toString().replaceAll('.', ',')}}</ion-label>
+          </ion-row>
+        </ion-col>
+
+        <ion-col size="12" class="calculadora__teclado">
+          <ion-grid>
+            <ion-row>
+              <ion-col><ion-button class="tecla" (click)="this.limparOperacao()"
+                  color="secondary">C</ion-button></ion-col>
+              <ion-col><ion-button class="tecla" (click)="this.addOperacao('%')"
+                  color="secondary">%</ion-button></ion-col>
+              <ion-col><ion-button class="tecla" (click)="this.limparCharOperacao()" color="secondary"><img
+                    src="../../assets/img/delete_icon.svg" alt="Delete"></ion-button></ion-col>
+              <ion-col><ion-button class="tecla" (click)="this.addOperacao('/')"
+                  color="secondary">/</ion-button></ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col><ion-button class="tecla" (click)="this.addOperacao('7')">7</ion-button></ion-col>
+              <ion-col><ion-button class="tecla" (click)="this.addOperacao('8')">8</ion-button></ion-col>
+              <ion-col><ion-button class="tecla" (click)="this.addOperacao('9')">9</ion-button></ion-col>
+              <ion-col><ion-button class="tecla" (click)="this.addOperacao('*')"
+                  color="secondary">*</ion-button></ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col><ion-button class="tecla" (click)="this.addOperacao('4')">4</ion-button></ion-col>
+              <ion-col><ion-button class="tecla" (click)="this.addOperacao('5')">5</ion-button></ion-col>
+              <ion-col><ion-button class="tecla" (click)="this.addOperacao('6')">6</ion-button></ion-col>
+              <ion-col><ion-button class="tecla" (click)="this.addOperacao('-')"
+                  color="secondary">-</ion-button></ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col><ion-button class="tecla" (click)="this.addOperacao('1')">1</ion-button></ion-col>
+              <ion-col><ion-button class="tecla" (click)="this.addOperacao('2')">2</ion-button></ion-col>
+              <ion-col><ion-button class="tecla" (click)="this.addOperacao('3')">3</ion-button></ion-col>
+              <ion-col><ion-button class="tecla" (click)="this.addOperacao('+')"
+                  color="secondary">+</ion-button></ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col><ion-button class="tecla" (click)="this.inverterSinal()">+/-</ion-button></ion-col>
+              <ion-col><ion-button class="tecla" (click)="this.addOperacao('0')">0</ion-button></ion-col>
+              <ion-col><ion-button class="tecla" (click)="this.addOperacao('.')">,</ion-button></ion-col>
+              <ion-col><ion-button class="tecla" (click)="this.finalizaOperacao()"
+                  color="secondary">=</ion-button></ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-col>
+      </ion-row>
+    </ion-col>
+  </ion-row>
+</ion-content>
